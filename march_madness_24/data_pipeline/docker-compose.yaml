@@ -1,0 +1,39 @@
+services:
+  pgmmdata:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=march_madness
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - "pgadmin_data:/var/lib/pgadmin:rw"
+    ports:
+      - "8080:80"
+  dataingest:
+    image: mm:v1
+    environment:
+      - user=${POSTGRES_USER}
+      - password=${POSTGRES_PASSWORD}
+      - host=pgmmdata
+      - port=5432
+      - db=march_madness
+      - datasets=MTeams.csv,MSeasons.csv,MNCAATourneySeeds.csv,MRegularSeasonCompactResults.csv,MNCAATourneyCompactResults.csv,MRegularSeasonDetailedResults.csv,MNCAATourneyDetailedResults.csv,MMasseyOrdinals.csv,MNCAATourneySlots.csv,MNCAATourneySeedRoundSlots.csv
+    volumes:
+      - "./data:/app/data:rw"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - pgmmdata
+volumes:
+    postgres_data:
+    pgadmin_data:
