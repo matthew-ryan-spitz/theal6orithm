@@ -1,39 +1,46 @@
 services:
-  pgmmdata:
-    image: postgres:13
+  postgres:
+    image: postgres:14
+    container_name: ${PROJECT_NAME}-postgres
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=march_madness
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - "postgres_data:/var/lib/postgresql/data:rw"
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
+    restart: on-failure
   pgadmin:
     image: dpage/pgadmin4
+    container_name: ${PROJECT_NAME}-pgadmin
+    env_file:
+      - .env
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     volumes:
       - "pgadmin_data:/var/lib/pgadmin:rw"
     ports:
-      - "8080:80"
+      - "${PGADMIN_PORT}:80"
   dataingest:
     image: mm:v1
+    container_name: ${PROJECT_NAME}-dataingest
+    env_file:
+      - .env
+    build:
+      context: ./python_ingestion
+      dockerfile: Dockerfile
     environment:
       - user=${POSTGRES_USER}
       - password=${POSTGRES_PASSWORD}
-      - host=pgmmdata
-      - port=5432
-      - db=march_madness
-      - datasets=MTeams.csv,MSeasons.csv,MNCAATourneySeeds.csv,MRegularSeasonCompactResults.csv,MNCAATourneyCompactResults.csv,MRegularSeasonDetailedResults.csv,MNCAATourneyDetailedResults.csv,MMasseyOrdinals.csv,MNCAATourneySlots.csv,MNCAATourneySeedRoundSlots.csv
+      - host=${POSTGRES_HOST}
+      - port=${POSTGRES_PORT}
+      - db=${POSTGRES_DB}
+      - tables=${POSTGRES_TABLES}
     volumes:
       - "./data:/app/data:rw"
-    build:
-      context: .
-      dockerfile: Dockerfile
     depends_on:
-      - pgmmdata
-volumes:
-    postgres_data:
-    pgadmin_data:
+      - postgres
