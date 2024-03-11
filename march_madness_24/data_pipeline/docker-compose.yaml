@@ -44,3 +44,6 @@ services:
       - "./data:/app/data:rw"
     depends_on:
       - postgres
+volumes:
+    postgres_data:
+    pgadmin_data:
