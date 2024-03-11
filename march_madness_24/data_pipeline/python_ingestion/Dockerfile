@@ -10,7 +10,7 @@ ENV password=${password}
 ENV host=${host}
 ENV port=${port}
 ENV db=${db}
-ENV datasets=${datasets}
+ENV tables=${tables}
 
 #ENTRYPOINT [ "python", "ingest_data.py" ]
-CMD python ingest_data.py --user=$user --password=$password --host=$host --port=$port --db=$db --datasets=$datasets
+CMD python ingest_data.py --user=$user --password=$password --host=$host --port=$port --db=$db --tables=$tables
