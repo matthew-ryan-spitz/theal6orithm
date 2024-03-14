@@ -13,4 +13,4 @@ ENV db=${db}
 ENV tables=${tables}
 
 #ENTRYPOINT [ "python", "ingest_data.py" ]
-CMD python ingest_data.py --user=$user --password=$password --host=$host --port=$port --db=$db --tables=$tables
+CMD python -u ingest_data.py --user=$user --password=$password --host=$host --port=$port --db=$db --tables=$tables
