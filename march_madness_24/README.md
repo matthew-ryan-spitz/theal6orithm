@@ -2,6 +2,10 @@
 
 docker rm ..
 -- automatically remove the container when it exists
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+docker volume rm $(docker volume ls -qf dangling=true)
+-- clean up environment
 
 docker ps
 -- lists running docker containers
@@ -27,3 +31,6 @@ docker-compose down
 
 docker logs
 -- checks logs of containers to find potential errors
+
+docker pull mageai/mageai:latest
+-- to update mage image
