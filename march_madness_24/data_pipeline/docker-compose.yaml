@@ -1,3 +1,4 @@
+version: "3"
 services:
   postgres:
     image: postgres:14
@@ -46,6 +47,7 @@ services:
       - postgres
   magic:
     image: mageai/mageai:latest
+    container_name: ${PROJECT_NAME}-magic
     command: mage start ${PROJECT_NAME}
     env_file:
       - .env
@@ -62,6 +64,8 @@ services:
       POSTGRES_PORT: ${POSTGRES_PORT}
     volumes:
       - "mage_data:/home/src/"
+      - "/home/${HOME_USER}/.gc/mage.json:/home/src/mage.json"
+      - "/home/${HOME_USER}/.kaggle/kaggle.json:/.kaggle/kaggle.json"
     ports:
       - ${MAGE_PORT}:6789
     restart: on-failure:5
