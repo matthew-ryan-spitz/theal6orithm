@@ -1,5 +1,10 @@
-## Docker Commands
+## Instructions
+### Build & Run Postgres & PG Admin Images
+docker-compose up -d --build postgres --build pgadmin
+### Build & Run Mage Image
+docker-compose up -d --build magic
 
+## Docker Commands
 docker rm ..
 -- automatically remove the container when it exists
 docker rm $(docker ps -a -q)
