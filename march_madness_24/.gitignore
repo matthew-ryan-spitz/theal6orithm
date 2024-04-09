@@ -2,3 +2,7 @@
 *.zip
 *.ipynb
 *.env
+# dbt Cloud
+target/
+dbt_packages/
+logs/
