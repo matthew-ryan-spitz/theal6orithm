@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: staging
     database: modular-cell-201815
-    schema: stg_march_madness_24
+    schema: stg_march_madness_2024
 
     tables:
       - name: stg_teams
