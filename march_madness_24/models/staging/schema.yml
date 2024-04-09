@@ -9,4 +9,5 @@ sources:
       - name: stg_teams
       - name: stg_seasons
       - name: stg_regular_season_results_compact
+      - name: stg_tourney_results_compact
       - name: stg_team_rankings
