@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: staging
+    database: modular-cell-201815
+    schema: stg_march_madness_24
+
+    tables:
+      - name: stg_teams
+      - name: stg_seasons
+      - name: stg_regular_season_results_compact
+      - name: stg_team_rankings
