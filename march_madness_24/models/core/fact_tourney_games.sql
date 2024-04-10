@@ -8,6 +8,7 @@
 -- join season
 -- join team_ids to get team names and seeds
 -- join seeds to get slots and matchups
+-- join team_rankings
 with output as (
     select tr.game_id,
         tr.season,
@@ -20,11 +21,13 @@ with output as (
         ss.weak_seed,
         tr.winning_team_id,
         t1.team_name as winning_team_name,
+        trk1.ordinal_rank_system_avg as winning_team_rank_avg,
         sd1.seed as winning_team_seed,
         case when srs.game_round > 1 then sd1.seed - substr(ss.strong_seed, 4) as winning_team_strong_seed_delta,
         case when srs.game_round > 1 then sd1.seed - substr(ss.weak_seed, 4) as winning_team_weak_seed_delta,
         tr.losing_team_id,
         t2.team_name as losing_team_name,
+        trk2.ordinal_rank_system_avg as losing_team_rank_avg,
         sd2.seed as losing_team_seed,
         case when srs.game_round > 1 then sd2.seed - substr(ss.strong_seed, 4) as losing_team_strong_seed_delta,
         case when srs.game_round > 1 then sd2.seed - substr(ss.weak_seed, 4) as losing_team_weak_seed_delta,
@@ -41,16 +44,24 @@ with output as (
         on tr.season = s.season
     left join {{ ref('stg_tourney_seeds') }} as sd1
         on tr.season = sd1.season
-            and winning_team_id.team_id = sd1.team_id
+            and tr.winning_team_id.team_id = sd1.team_id
     left join {{ ref('stg_tourney_seeds') }} as sd2
         on tr.season = sd2.season
-            and losing_team_id.team_id = sd2.team_id
+            and tr.losing_team_id.team_id = sd2.team_id
     left join {{ ref('stg_tourney_seed_round_slots') }} as srs
         on sd1.seed = srs.seed
             and tr.day_num between srs.early_day_num and srs.late_day_num
     left join {{ ref('stg_tourney_slots') }} as ss
         on tr.season = ss.season
             and srs.game_slot = ss.slot
+    left join {{ ref('mart_daily_team_rankings_agg')}} as trk1
+        on tr.season = trk1.season
+            and tr.winning_team_id = trk1.team_id
+            and tr.day_num = trk1.day_num
+    left join {{ ref('mart_daily_team_rankings_agg')}} as trk2
+        on tr.season = trk2.season
+            and tr.winning_team_id = trk2.team_id
+            and tr.day_num = trk2.day_num
 )
 
 select * from output
