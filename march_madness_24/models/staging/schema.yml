@@ -13,3 +13,4 @@ sources:
       - name: stg_team_rankings
       - name: stg_tourney_seeds
       - name: stg_tourney_seeds_historical
+      - name: stg_tourney_slots
