@@ -14,3 +14,4 @@ sources:
       - name: stg_tourney_seeds
       - name: stg_tourney_seeds_historical
       - name: stg_tourney_slots
+      - name: stg_tourney_seed_round_slots
