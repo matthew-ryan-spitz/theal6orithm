@@ -14,25 +14,31 @@ with output as (
         srs.game_slot,
         ss.strong_seed,
         ss.weak_seed,
+
         tr.winning_team_id,
         t1.team_name as winning_team_name,
         trk1.ordinal_rank_system_avg as winning_team_rank_avg,
         sd1.seed as winning_team_seed,
-        case when srs.game_round > 1 then sd1.seed - substr(ss.strong_seed, 4) as winning_team_strong_seed_delta,
-        case when srs.game_round > 1 then sd1.seed - substr(ss.weak_seed, 4) as winning_team_weak_seed_delta,
+
         tr.losing_team_id,
         t2.team_name as losing_team_name,
         trk2.ordinal_rank_system_avg as losing_team_rank_avg,
         sd2.seed as losing_team_seed,
-        case when srs.game_round > 1 then sd2.seed - substr(ss.strong_seed, 4) as losing_team_strong_seed_delta,
-        case when srs.game_round > 1 then sd2.seed - substr(ss.weak_seed, 4) as losing_team_weak_seed_delta,
+
         tr.winning_team_score,
         tr.losing_team_score,
         tr.winning_team_location,
         case when tr.winning_team_location = 'home' then 1 else 0 end as home_win_flag,
         case when trk1.ordinal_rank_system_avg is null and trk2.ordinal_rank_system_avg is null then null
             when coalesce(trk1.ordinal_rank_system_avg, 1000000) < coalesce(trk2.ordinal_rank_system_avg, 1000000) then 1 else 0 end as favorite_rank_win_flag,
-        case when seed < sd2.seed then 1 else 0 end as favorite_seed_win_flag
+        case when 
+            (case when sd1.seed like '%a%' or sd1.seed like '%b%' then cast(substr(sd1.seed,2,2) as int64) else cast(substr(sd1.seed,-2) as int64) end) 
+            
+            < 
+            
+            (case when sd2.seed like '%a%' or sd2.seed like '%b%' then cast(substr(sd2.seed,2,2) as int64) else cast(substr(sd2.seed,-2) as int64) end) 
+              
+         then 1 else 0 end as favorite_seed_win_flag
     from {{ ref('stg_tourney_results_compact') }} as tr
     -- join team_ids
     left join {{ ref('stg_teams') }} as t1
