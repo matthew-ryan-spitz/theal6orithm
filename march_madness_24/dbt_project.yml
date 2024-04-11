@@ -37,3 +37,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   march_madness:
+    staging:
+      materialized: view
+    core:
+      materialized: table
+
+vars:
+  max_game_day_num: 154

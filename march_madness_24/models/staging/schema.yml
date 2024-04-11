@@ -1,0 +1,290 @@
+version: 2
+
+sources:
+  - name: staging
+    database: modular-cell-201815
+    schema: stg_march_madness_2024
+
+    tables:
+      - name: stg_teams
+      - name: stg_seasons
+      - name: stg_regular_season_results_compact
+      - name: stg_tourney_results_compact
+      - name: stg_team_rankings
+      - name: stg_tourney_seeds
+      - name: stg_tourney_seeds_historical
+      - name: stg_tourney_slots
+      - name: stg_tourney_seed_round_slots
+
+models:
+  - name: stg_regular_season_results_compact
+    description: ""
+    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: regular_season_games_played_quartile
+        data_type: int64
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+      - name: num_ot
+        data_type: int64
+        description: ""
+
+  - name: stg_team_rankings
+    description: ""
+    columns:
+      - name: ranking_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: ranking_day_num
+        data_type: int64
+        description: ""
+
+      - name: games_calculated_day_num
+        data_type: int64
+        description: ""
+
+      - name: system_name
+        data_type: string
+        description: ""
+
+      - name: team_id
+        data_type: int64
+        description: ""
+
+      - name: ordinal_rank
+        data_type: int64
+        description: ""
+
+  - name: stg_teams
+    description: ""
+    columns:
+      - name: team_id
+        data_type: int64
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: team_name
+        data_type: string
+        description: ""
+
+      - name: first_d1_season
+        data_type: int64
+        description: ""
+
+      - name: last_d1_season
+        data_type: int64
+        description: ""
+
+      - name: d1_active_years
+        data_type: int64
+        description: ""
+
+  - name: stg_seasons
+    description: ""
+    columns:
+      - name: season
+        data_type: int64
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: day_zero
+        data_type: datetime
+        description: ""
+
+      - name: region_w
+        data_type: string
+        description: ""
+
+      - name: region_x
+        data_type: string
+        description: ""
+
+      - name: region_y
+        data_type: string
+        description: ""
+
+      - name: region_z
+        data_type: string
+        description: ""
+
+  - name: stg_tourney_results_compact
+    description: ""
+    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: tourney_round_name
+        data_type: string
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+  - name: stg_tourney_seed_round_slots
+    description: ""
+    columns:
+      - name: seed_slot_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: seed
+        data_type: string
+        description: ""
+
+      - name: game_slot
+        data_type: string
+        description: ""
+
+      - name: game_round
+        data_type: int64
+        description: ""
+
+      - name: early_day_num
+        data_type: int64
+        description: ""
+
+      - name: late_day_num
+        data_type: int64
+        description: ""
+
+  - name: stg_tourney_seeds
+    description: ""
+    columns:
+      - name: seed_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: seed
+        data_type: string
+        description: ""
+
+      - name: team_id
+        data_type: int64
+        description: ""
+
+  - name: stg_tourney_slots
+    description: ""
+    columns:
+      - name: slot_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: slot
+        data_type: string
+        description: ""
+
+      - name: strong_seed
+        data_type: string
+        description: ""
+
+      - name: weak_seed
+        data_type: string
+        description: ""
