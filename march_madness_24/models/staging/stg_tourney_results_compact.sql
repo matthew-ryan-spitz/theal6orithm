@@ -30,6 +30,6 @@ transformed as (
 
 select * from transformed
 
-{% if var('is_test_run', default=true) %}
+{% if var('is_test_run', default=false) %}
     limit 100
 {% endif %}
