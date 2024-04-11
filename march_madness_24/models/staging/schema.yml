@@ -17,18 +17,49 @@ sources:
       - name: stg_tourney_seed_round_slots
 
 models:
-  - name: stg_tourney_results_compact
-    description: ""
-    columns:
-  - name: stg_tourney_seeds
-    description: ""
-    columns:
   - name: stg_regular_season_results_compact
     description: ""
     columns:
-  - name: stg_tourney_seed_round_slots
-    description: ""
-    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: regular_season_games_played_quartile
+        data_type: int64
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+      - name: num_ot
+        data_type: int64
+        description: ""
+
   - name: stg_team_rankings
     description: ""
     columns:
@@ -83,9 +114,137 @@ models:
         data_type: int64
         description: ""
 
-  - name: stg_tourney_slots
-    description: ""
-    columns:
   - name: stg_seasons
     description: ""
     columns:
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: day_zero
+        data_type: datetime
+        description: ""
+
+      - name: region_w
+        data_type: string
+        description: ""
+
+      - name: region_x
+        data_type: string
+        description: ""
+
+      - name: region_y
+        data_type: string
+        description: ""
+
+      - name: region_z
+        data_type: string
+        description: ""
+
+  - name: stg_tourney_results_compact
+    description: ""
+    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: tourney_round_name
+        data_type: string
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+  - name: stg_tourney_seed_round_slots
+    description: ""
+    columns:
+      - name: seed_slot_id
+        data_type: string
+        description: ""
+
+      - name: seed
+        data_type: string
+        description: ""
+
+      - name: game_slot
+        data_type: string
+        description: ""
+
+      - name: game_round
+        data_type: int64
+        description: ""
+
+      - name: early_day_num
+        data_type: int64
+        description: ""
+
+      - name: late_day_num
+        data_type: int64
+        description: ""
+
+  - name: stg_tourney_seeds
+    description: ""
+    columns:
+      - name: seed_id
+        data_type: string
+        description: ""
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: seed
+        data_type: string
+        description: ""
+
+      - name: team_id
+        data_type: int64
+        description: ""
+
+  - name: stg_tourney_slots
+    description: ""
+    columns:
+      - name: slot_id
+        data_type: string
+        description: ""
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: slot
+        data_type: string
+        description: ""
+
+      - name: strong_seed
+        data_type: string
+        description: ""
+
+      - name: weak_seed
+        data_type: string
+        description: ""
