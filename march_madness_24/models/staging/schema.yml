@@ -23,6 +23,11 @@ models:
       - name: game_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: season
         data_type: int64
@@ -66,6 +71,11 @@ models:
       - name: ranking_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: season
         data_type: int64
@@ -97,6 +107,11 @@ models:
       - name: team_id
         data_type: int64
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: team_name
         data_type: string
@@ -120,6 +135,11 @@ models:
       - name: season
         data_type: int64
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: day_zero
         data_type: datetime
@@ -147,6 +167,11 @@ models:
       - name: game_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: season
         data_type: int64
@@ -186,6 +211,11 @@ models:
       - name: seed_slot_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: seed
         data_type: string
@@ -213,6 +243,11 @@ models:
       - name: seed_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: season
         data_type: int64
@@ -232,6 +267,11 @@ models:
       - name: slot_id
         data_type: string
         description: ""
+        tests:
+          - unique:
+            severity: warn
+          - not_null:
+            severity: warn
 
       - name: season
         data_type: int64
