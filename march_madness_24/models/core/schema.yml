@@ -236,6 +236,7 @@ models:
                 - season
                 - games_calculated_day_num
                 - team_id
+                - day_num
               severity: warn
     description: ""
     columns:
