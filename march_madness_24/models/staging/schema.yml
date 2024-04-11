@@ -15,3 +15,77 @@ sources:
       - name: stg_tourney_seeds_historical
       - name: stg_tourney_slots
       - name: stg_tourney_seed_round_slots
+
+models:
+  - name: stg_tourney_results_compact
+    description: ""
+    columns:
+  - name: stg_tourney_seeds
+    description: ""
+    columns:
+  - name: stg_regular_season_results_compact
+    description: ""
+    columns:
+  - name: stg_tourney_seed_round_slots
+    description: ""
+    columns:
+  - name: stg_team_rankings
+    description: ""
+    columns:
+      - name: ranking_id
+        data_type: string
+        description: ""
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: ranking_day_num
+        data_type: int64
+        description: ""
+
+      - name: games_calculated_day_num
+        data_type: int64
+        description: ""
+
+      - name: system_name
+        data_type: string
+        description: ""
+
+      - name: team_id
+        data_type: int64
+        description: ""
+
+      - name: ordinal_rank
+        data_type: int64
+        description: ""
+
+  - name: stg_teams
+    description: ""
+    columns:
+      - name: team_id
+        data_type: int64
+        description: ""
+
+      - name: team_name
+        data_type: string
+        description: ""
+
+      - name: first_d1_season
+        data_type: int64
+        description: ""
+
+      - name: last_d1_season
+        data_type: int64
+        description: ""
+
+      - name: d1_active_years
+        data_type: int64
+        description: ""
+
+  - name: stg_tourney_slots
+    description: ""
+    columns:
+  - name: stg_seasons
+    description: ""
+    columns:

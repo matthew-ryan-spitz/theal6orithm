@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_teams
+    description: ""
+    columns:
+  - name: dim_seasons
+    description: ""
+    columns:
+  - name: fact_regular_season_games
+    description: ""
+    columns:
+  - name: fact_tourney_games
+    description: ""
+    columns:
+  - name: mart_daily_team_rankings_agg
+    description: ""
+    columns:
