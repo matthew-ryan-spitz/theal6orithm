@@ -18,7 +18,9 @@ with output as (
         tr.winning_team_score,
         tr.losing_team_score,
         tr.winning_team_location,
-        case when tr.winning_team_location = 'home' then 1 else 0 end as home_win_flag
+        case when tr.winning_team_location = 'home' then 1 else 0 end as home_win_flag,
+        case when trk1.ordinal_rank_system_avg is null and trk2.ordinal_rank_system_avg is null then null
+            when coalesce(trk1.ordinal_rank_system_avg, 0) < coalesce(trk2.ordinal_rank_system_avg, 0) then 1 else 0 end as favorite_win_flag
     from {{ ref('stg_regular_season_results_compact') }} as tr
     -- join team_ids
     left join {{ ref('stg_teams') }} as t1
