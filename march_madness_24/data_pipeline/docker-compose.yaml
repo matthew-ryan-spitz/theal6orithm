@@ -69,7 +69,19 @@ services:
     ports:
       - ${MAGE_PORT}:6789
     restart: on-failure:5
+  metabase:
+    image: metabase/metabase:latest
+    container_name: ${PROJECT_NAME}-metabase
+    env_file:
+      - .env
+    environment:
+      MB_DB_FILE: ${METABASE_DB}
+    volumes:
+      - "metabase_data:/metabase-data"
+    ports:
+      - ${METABASE_PORT}:3000
 volumes:
     postgres_data:
     pgadmin_data:
     mage_data:
+    metabase_data:
