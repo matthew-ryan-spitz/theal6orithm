@@ -1,41 +1,25 @@
-## Instructions
-### Build & Run Postgres & PG Admin Images
-docker-compose up -d --build postgres --build pgadmin
-### Build & Run Mage Image
+## Instructions to Run Data Pipeline Locally that Exports data to Google Cloud Storage and Google BigQuery
+
+### 1. Build & Run Mage Image locally
 docker-compose up -d --build magic
 
-## Docker Commands
-docker rm ..
--- automatically remove the container when it exists
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -q)
-docker volume rm $(docker volume ls -qf dangling=true)
--- clean up environment
+### 2. Go to Local Mage Environment
+http://localhost:6789/
+copies of all files to execute Mage pipelines exist in march_madness_24/data_pipeline/mage_orchestration
 
-docker ps
--- lists running docker containers
--- a flag, lists all docker containers
+### 3. Go to Pipelines and Trigger api_to_gcs pipeline
+http://localhost:6789/pipelines/api_to_gcs/triggers/4
+this pipeline will load data from Kaggle and save to GCS data lake
 
-docker images
--- lists docker images
+### 4. At end of the api_to_gcs pipeline another pipeline is automatically triggered, gcs_to_bigquery
+this pipeline will load data from GCS data lake, clean the data, and load to data warehouse, BigQuery (location: stg_march_madness_2024 dataset)
 
-docker build -t service:v1 .
-docker run -it service:v1
--- builds & runs python impage
+### 5. At end of the gcs_to_bigquery pipeline another pipeline is automatically triggered, dbt_transformations
+this pipeline will transform the data within the data warehouse and prepare it for analytic consumption and export it back to data warehouse, BigQuery
+(location: prod_march_madness_2024 dataset)
 
-pip list
--- checks pip packages installed within container(e.g. wheel: 0.42.0)
+### 6. Build & Run Metabase Image locally
+docker-compose up -d --build metabase
 
-docker-compose up -d
--- builds images [if not built] & runs containers in docker-composer yaml file
-docker-compose up -d --build service1 --build service2
--- explicit direction to build images
-
-docker-compose down
--- shuts down containers
-
-docker logs
--- checks logs of containers to find potential errors
-
-docker pull mageai/mageai:latest
--- to update mage image
+### 7. Connect Metabase to BigQuery and Create Dashboard
+copy of dashboard saved in march_madness_24/dashboard
