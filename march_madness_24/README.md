@@ -23,3 +23,7 @@ docker-compose up -d --build metabase
 
 ### 7. Connect Metabase to BigQuery and Create Dashboard
 copy of dashboard saved in march_madness_24/dashboard
+
+### Next Steps
+- connect Mage & Metabase to Cloud
+- use data for ML model
