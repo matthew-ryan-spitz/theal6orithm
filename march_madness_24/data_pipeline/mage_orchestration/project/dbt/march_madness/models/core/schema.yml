@@ -1,0 +1,273 @@
+version: 2
+
+models:
+  - name: dim_seasons
+    description: ""
+    columns:
+      - name: season
+        data_type: int64
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: day_zero
+        data_type: datetime
+        description: ""
+
+      - name: region_w
+        data_type: string
+        description: ""
+
+      - name: region_x
+        data_type: string
+        description: ""
+
+      - name: region_y
+        data_type: string
+        description: ""
+
+      - name: region_z
+        data_type: string
+        description: ""
+
+  - name: dim_teams
+    description: ""
+    columns:
+      - name: team_id
+        data_type: int64
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: team_name
+        data_type: string
+        description: ""
+
+      - name: first_d1_season
+        data_type: int64
+        description: ""
+
+      - name: last_d1_season
+        data_type: int64
+        description: ""
+
+      - name: d1_active_years
+        data_type: int64
+        description: ""
+
+  - name: fact_regular_season_games
+    description: ""
+    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: game_date
+        data_type: date
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_name
+        data_type: string
+        description: ""
+
+      - name: winning_team_rank_avg
+        data_type: float64
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_name
+        data_type: string
+        description: ""
+
+      - name: losing_team_rank_avg
+        data_type: float64
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+      - name: home_win_flag
+        data_type: int64
+        description: ""
+
+      - name: favorite_rank_win_flag
+        data_type: int64
+        description: ""
+
+  - name: fact_tourney_games
+    description: ""
+    columns:
+      - name: game_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: game_date
+        data_type: date
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""
+
+      - name: tourney_round_name
+        data_type: string
+        description: ""
+
+      - name: tourney_round_number
+        data_type: int64
+        description: ""
+
+      - name: game_slot
+        data_type: string
+        description: ""
+
+      - name: strong_seed
+        data_type: string
+        description: ""
+
+      - name: weak_seed
+        data_type: string
+        description: ""
+
+      - name: winning_team_id
+        data_type: int64
+        description: ""
+
+      - name: winning_team_name
+        data_type: string
+        description: ""
+
+      - name: winning_team_rank_avg
+        data_type: float64
+        description: ""
+
+      - name: winning_team_seed
+        data_type: string
+        description: ""
+
+      - name: losing_team_id
+        data_type: int64
+        description: ""
+
+      - name: losing_team_name
+        data_type: string
+        description: ""
+
+      - name: losing_team_rank_avg
+        data_type: float64
+        description: ""
+
+      - name: losing_team_seed
+        data_type: string
+        description: ""
+
+      - name: winning_team_score
+        data_type: int64
+        description: ""
+
+      - name: losing_team_score
+        data_type: int64
+        description: ""
+
+      - name: winning_team_location
+        data_type: string
+        description: ""
+
+      - name: home_win_flag
+        data_type: int64
+        description: ""
+
+      - name: favorite_rank_win_flag
+        data_type: int64
+        description: ""
+
+      - name: favorite_seed_win_flag
+        data_type: int64
+        description: ""
+
+  - name: mart_daily_team_rankings_agg
+    tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - season
+                - games_calculated_day_num
+                - team_id
+                - day_num
+              severity: warn
+    description: ""
+    columns:
+      - name: season
+        data_type: int64
+        description: ""
+
+      - name: games_calculated_day_num
+        data_type: int64
+        description: ""
+
+      - name: team_id
+        data_type: int64
+        description: ""
+
+      - name: team_name
+        data_type: string
+        description: ""
+
+      - name: ordinal_rank_system_avg
+        data_type: float64
+        description: ""
+
+      - name: ordinal_rank_system_max
+        data_type: float64
+        description: ""
+
+      - name: ordinal_rank_system_min
+        data_type: float64
+        description: ""
+
+      - name: day_num
+        data_type: int64
+        description: ""

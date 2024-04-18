@@ -1,0 +1,17 @@
+march_madness_bq:
+  target: dev
+  outputs:
+    dev:
+        type: bigquery
+        method: service-account
+        project: modular-cell-201815
+        dataset: dev_march_madness_2024
+        threads: 4
+        keyfile: /home/src/mage.json
+    prod:
+        type: bigquery
+        method: service-account
+        project: modular-cell-201815
+        dataset: prod_march_madness_2024
+        threads: 4
+        keyfile: /home/src/mage.json
