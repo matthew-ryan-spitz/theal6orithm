@@ -1,50 +1,5 @@
 version: "3"
 services:
-  postgres:
-    image: postgres:14
-    container_name: ${PROJECT_NAME}-postgres
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - "postgres_data:/var/lib/postgresql/data:rw"
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    restart: on-failure
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: ${PROJECT_NAME}-pgadmin
-    env_file:
-      - .env
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-    volumes:
-      - "pgadmin_data:/var/lib/pgadmin:rw"
-    ports:
-      - "${PGADMIN_PORT}:80"
-  dataingest:
-    image: mm:v1
-    container_name: ${PROJECT_NAME}-dataingest
-    env_file:
-      - .env
-    build:
-      context: ./python_ingestion
-      dockerfile: Dockerfile
-    environment:
-      - user=${POSTGRES_USER}
-      - password=${POSTGRES_PASSWORD}
-      - host=${POSTGRES_HOST}
-      - port=${POSTGRES_PORT}
-      - db=${POSTGRES_DB}
-      - tables=${POSTGRES_TABLES}
-    volumes:
-      - "./data:/app/data:rw"
-    depends_on:
-      - postgres
   magic:
     image: mageai/mageai:latest
     container_name: ${PROJECT_NAME}-magic
@@ -81,7 +36,5 @@ services:
     ports:
       - ${METABASE_PORT}:3000
 volumes:
-    postgres_data:
-    pgadmin_data:
     mage_data:
     metabase_data:
